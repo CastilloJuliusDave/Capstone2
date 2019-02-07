@@ -14,7 +14,10 @@
 	}
 
 	if (isset($_SESSION['id'])) {
-		header("location:home.php");
+		if ($_SESSION['type'] == 1) {
+			header("location:home.php");
+		}
+		
 	}
 
 ?>

@@ -18,9 +18,8 @@ class Main {
 		$sql .="INSERT INTO " . $table;
 		$sql .=" (".implode(",",array_keys($fields)). ") VALUES ";
 		$sql .=" ('".implode("','", array_values($fields)). "')";
-		
-/*		echo $sql;*/
 
+/*echo "<h1>" . $sql . "</h1>";*/
 		$query = mysqli_query($this->con,$sql);
 		if($query){
 			return true;
@@ -55,14 +54,13 @@ class Main {
 			//UPDATE table SET lastname = '' , firstname = '' , middlename '' , picture = '', WHERE id = '',
 			$sql .=$key . "='".$value."',";
 		}
-		$sql = substr($sql, 0, -2);value . "' AND ";
-		$sql = "UPDATE ".$table." SET ".$sql." WHERE " . $condition;
+		$sql = substr($sql, 0, -2); $value . "' AND ";
+		$sql = "UPDATE ".$table." SET ".$sql."' WHERE " . $condition;
 		
-		echo $sql;
-
-/*		if(mysqli_query($this->con,$sql)){
+/*		echo $sql;*/
+		if(mysqli_query($this->con,$sql)){
 			return true;
-		}*/
+		}
 	}
 	//end of update
 
@@ -137,6 +135,20 @@ class Main {
 
 		public function user_logout(){
 			$_SESSION['login'] = FALSE;
+
+			$where = array("employee_id"=>$_SESSION['id']);
+			$myarray = array(
+				"last_login"=>$_SESSION['last_login'],
+				"status"=>"OUT"
+			);
+			$this->update_data("Employee_Login_Master", $where, $myarray);
+
+			$myarray = array(
+				"employee_id"=>$_SESSION['id'],
+				"status"=>"Logged_Out"
+			);
+			$this->insert_data("Activity_Master", $myarray);
+
 			session_destroy();
 		}
 
@@ -152,7 +164,7 @@ class Main {
 			//for login process
 	public function check_login($employeeID, $password){
 /*		$password = md5($password);*/
-		$sql= "SELECT employee_id, user_type_id FROM Employee_Login_Master WHERE employee_id='$employeeID' AND password='$password'";
+		$sql= "SELECT * FROM Employee_Login_Master WHERE employee_id='$employeeID' AND password='$password'";
 		//checking id the username is available in the table
 		$result = mysqli_query($this->con,$sql);
 		$user_data = mysqli_fetch_array($result);
@@ -165,6 +177,19 @@ class Main {
 			$_SESSION['login'] = true;
 			$_SESSION['id'] = $user_data['employee_id'];
 			$_SESSION['type'] = $user_data['user_type_id'];
+			$_SESSION['last_login'] = $user_data['last_login'];
+			
+
+			$where = array("employee_id"=>$_SESSION['id']);
+			$myarray = array("status"=>"IN");
+			$this->update_data("Employee_Login_Master", $where, $myarray);
+
+			$myarray = array(
+				"employee_id"=>$_SESSION['id'],
+				"status"=>"Logged_In"
+			);
+			$this->insert_data("Activity_Master", $myarray);
+
 			return true;
 		}
 		
@@ -207,39 +232,104 @@ if (isset($_POST['submit_registration'])) {
 		"password"=>"admin",
 		"user_type_id"=>$_POST['usertype']
 	);
-
-	if ($obj->insert_data("Employee_Master", $myarray)) {
-
 		if ($obj2->insert_data("Employee_Login_Master", $myarray2)) {
 			header("location: registration.php?msg=Registration Successfull");
 		}else{
 			//failed register
 			header("location: registration.php?msg=Login Registration Failed");
 		}
-	
-	}else{
-		//failed register
-		header("location: registration.php?msg=Employee Registration Failed");
-	}
 }
 
-if (isset($_POST['submit_thread'])) {
+
+/*if (isset($_POST['action'])) {
+
+	echo "The _post action! is called.";
+    switch ($_POST['action']) {
+        case 'time_in':
+            time_in();
+            break;
+
+        case 'break_':
+            break_();
+            break;
+
+        case 'lunch':
+            lunch();
+            break;
+
+        case 'time_out':
+            time_out();
+            break;
+    }
+}
+
+function time_in() {
+    echo "The select time_in is called.";
+    exit;
+}
+
+function break_() {
+    echo "The insert break_ is called.";
+    exit;
+}
+function lunch() {
+    echo "The insert lunch is called.";
+    exit;
+}
+function time_out() {
+    echo "The insert time_out is called.";
+    exit;
+}*/
+
+if (isset($_POST['time_in'])) {
 	$myarray = array(
-		"subject"=>$_POST['title'],
-		"category"=>$_POST['category'],
-		"language"=>md5($_POST['language']),
-		"content"=>$_POST['document-full']
+		"employee_id"=>$_SESSION['id'],
+		"status"=>"Time_In"
+	);
+	    if ($obj->insert_data("Activity_Master", $myarray)) {
+
+		}else{
+
+		}
+}
+
+if (isset($_POST['break_'])) {
+	$myarray = array(
+		"employee_id"=>$_SESSION['id'],
+		"status"=>"Break"
+	);
+	    if ($obj->insert_data("Activity_Master", $myarray)) {
+			header("location: home.php?msg=Punch_in_BREAK_Successfull");
+		}else{
+			header("location: home.php?msg=Punch_in_BREAK_Failed");
+		}
+}
+
+if (isset($_POST['lunch'])) {
+	$myarray = array(
+		"employee_id"=>$_SESSION['id'],
+		"status"=>"Lunch"
 	);
 
-	if ($obj->insert_data("thread", $myarray)) {
-	/*	header("location: index.php?msg=You are now Registered!");*/
-	alert("New Thread Posted.");
-		header("location: login.php?msg=Registration Successfull");
-	}else{
-		//failed register
-		alert("Failed to Post New Thread. Please try again.");
-		header("location: registration.php?msg=Registration Failed");
-	}
+	    if ($obj->insert_data("Activity_Master", $myarray)) {
+			header("location: home.php?msg=Punch_in_LUNCH_Successfull");
+		}else{
+			header("location: home.php?msg=Punch_in_LUNCH_Failed");
+		}
+}
+
+if (isset($_POST['time_out'])) {
+	$myarray = array(
+		"employee_id"=>$_SESSION['id'],
+		"status"=>"Time_Out"
+	);
+
+	    if ($obj->insert_data("Activity_Master", $myarray)) {
+			header("location: home.php?msg=Clock_OUT_Successfull");
+		}else{
+			header("location: home.php?msg=Clock_OUT_Failed");
+		}
+
 }
 
 

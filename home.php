@@ -45,136 +45,14 @@
   </head>
   <body class="menu-position-side menu-side-left full-screen">
 	<div class="all-wrapper solid-bg-all">
-		<div class="search-with-suggestions-w">
-			<div class="search-with-suggestions-modal">
-				<div class="element-search">
-				  <input class="search-suggest-input" placeholder="Start typing to search..." type="text">
-					<div class="close-search-suggestions">
-					<i class="os-icon os-icon-x"></i>
-					</div>
-				</div>
-				<div class="search-suggestions-group">
-				  <div class="ssg-header">
-				    <div class="ssg-icon">
-					 <div class="os-icon os-icon-box"></div>
-				    </div>
-				    <div class="ssg-name">
-					 Projects
-				    </div>
-				    <div class="ssg-info">
-					 24 Total
-				    </div>
-				  </div>
-				  <div class="ssg-content">
-				    <div class="ssg-items ssg-items-boxed">
-					 <a class="ssg-item" href="users_profile_big.html">
-					   <div class="item-media" style="background-image: url(img/company6.png)"></div>
-					   <div class="item-name">
-						Integ<span>ration</span> with API
-					   </div>
-					 </a><a class="ssg-item" href="users_profile_big.html">
-					   <div class="item-media" style="background-image: url(img/company7.png)"></div>
-					   <div class="item-name">
-						Deve<span>lopm</span>ent Project
-					   </div>
-					 </a>
-				    </div>
-				  </div>
-				</div>
-				<div class="search-suggestions-group">
-				  <div class="ssg-header">
-				    <div class="ssg-icon">
-					 <div class="os-icon os-icon-users"></div>
-				    </div>
-				    <div class="ssg-name">
-					 Customers
-				    </div>
-				    <div class="ssg-info">
-					 12 Total
-				    </div>
-				  </div>
-				  <div class="ssg-content">
-				    <div class="ssg-items ssg-items-list">
-					 <a class="ssg-item" href="users_profile_big.html">
-					   <div class="item-media" style="background-image: url(img/avatar1.jpg)"></div>
-					   <div class="item-name">
-						John Ma<span>yer</span>s
-					   </div>
-					 </a><a class="ssg-item" href="users_profile_big.html">
-					   <div class="item-media" style="background-image: url(img/avatar2.jpg)"></div>
-					   <div class="item-name">
-						Th<span>omas</span> Mullier
-					   </div>
-					 </a><a class="ssg-item" href="users_profile_big.html">
-					   <div class="item-media" style="background-image: url(img/avatar3.jpg)"></div>
-					   <div class="item-name">
-						Kim C<span>olli</span>ns
-					   </div>
-					 </a>
-				    </div>
-				  </div>
-				</div>
-				<div class="search-suggestions-group">
-				  <div class="ssg-header">
-				    <div class="ssg-icon">
-					 <div class="os-icon os-icon-folder"></div>
-				    </div>
-				    <div class="ssg-name">
-					 Files
-				    </div>
-				    <div class="ssg-info">
-					 17 Total
-				    </div>
-				  </div>
-				  <div class="ssg-content">
-				    <div class="ssg-items ssg-items-blocks">
-					 <a class="ssg-item" href="#">
-					   <div class="item-icon">
-						<i class="os-icon os-icon-file-text"></i>
-					   </div>
-					   <div class="item-name">
-						Work<span>Not</span>e.txt
-					   </div>
-					 </a><a class="ssg-item" href="#">
-					   <div class="item-icon">
-						<i class="os-icon os-icon-film"></i>
-					   </div>
-					   <div class="item-name">
-						V<span>ideo</span>.avi
-					   </div>
-					 </a><a class="ssg-item" href="#">
-					   <div class="item-icon">
-						<i class="os-icon os-icon-database"></i>
-					   </div>
-					   <div class="item-name">
-						User<span>Tabl</span>e.sql
-					   </div>
-					 </a><a class="ssg-item" href="#">
-					   <div class="item-icon">
-						<i class="os-icon os-icon-image"></i>
-					   </div>
-					   <div class="item-name">
-						wed<span>din</span>g.jpg
-					   </div>
-					 </a>
-				    </div>
-				    <div class="ssg-nothing-found">
-					 <div class="icon-w">
-					   <i class="os-icon os-icon-eye-off"></i>
-					 </div>
-					 <span>No files were found. Try changing your query...</span>
-				    </div>
-				  </div>
-				</div>
-			</div>
-		</div>
+
 		<div class="layout-w">
 		   <!--------------------
 		   START - Mobile Menu
 		   -------------------->
 			<div class="menu-mobile menu-activated-on-click color-scheme-dark">
 				<div class="mm-logo-buttons-w">
-				  <a class="mm-logo" href="index.html"><img src="img/logo.png"><span>Clean Admin</span></a>
+				  <a class="mm-logo" href="index.html"><img src="img/logo.png"><span>Pahiram.ph</span></a>
 				  <div class="mm-buttons">
 				    <div class="content-panel-open">
 					 <div class="os-icon os-icon-grid-circles"></div>
@@ -190,45 +68,62 @@
 					 <img alt="" src="img/avatar1.jpg">
 				    </div>
 				    <div class="logged-user-info-w">
-					 <div class="logged-user-name">
-					   <?php echo $id;?>
-					 </div>
-					 <div class="logged-user-role">
-					   <?php echo $user_type;?>
-					 </div>
+							<div class="logged-user-name">
+								<?php
+								
+								$where = array("employee_id"=>$emp_id,);
+								$employee = $obj->select_data("Employee_Master", $where);
+								$string = $employee['middle_name'];
+
+								if (!empty($string)) {
+									$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
+								}else{
+									$fullname = $employee['last_name'].", ".$employee['first_name'];
+								}
+								/*get employee status type*/
+								$category = $employee['status_id'];
+								$where = array("id"=>$category,);
+								$emp_status = $obj->select_data("User_Type_Master", $where);
+
+								?>
+								<?php echo $fullname;?>
+							</div>
+							<div class="logged-user-role">
+								<?php echo $emp_status['user_type'];?>
+							</div>
 				    </div>
 				  </div>
 				  <!--------------------
 				  START - Mobile Menu List
 				  -------------------->
 				  <ul class="main-menu">
-				    <li class="has-sub-menu">
-					 <a href="index.html">
-					   <div class="icon-w">
-						<div class="os-icon os-icon-layout"></div>
-					   </div>
-					   <span>Dashboard</span></a>
-					 <ul class="sub-menu">
-					   <li>
-						<a href="index.html">Dashboard 1</a>
-					   </li>
-					   <li>
-						<a href="apps_crypto.html">Crypto Dashboard <strong class="badge badge-danger">Hot</strong></a>
-					   </li>
-					   <li>
-						<a href="apps_support_dashboard.html">Dashboard 3</a>
-					   </li>
-					   <li>
-						<a href="apps_projects.html">Dashboard 4</a>
-					   </li>
-					   <li>
-						<a href="apps_bank.html">Dashboard 5</a>
-					   </li>
-					   <li>
-						<a href="layouts_menu_top_image.html">Dashboard 6</a>
-					   </li>
-					 </ul>
-				    </li>
+					<li class="has-sub-menu">
+						<a href="index.html">
+						<div class="icon-w">
+							<div class="os-icon os-icon-layout"></div>
+						</div>
+						<span>Dashboard</span></a>
+						<ul class="sub-menu">
+							<li>
+								<a href="index.html">Dashboard 1</a>
+							</li>
+							<li>
+								<a href="apps_crypto.html">Crypto Dashboard <strong class="badge badge-danger">Hot</strong></a>
+							</li>
+							<li>
+								<a href="apps_support_dashboard.html">Dashboard 3</a>
+							</li>
+							<li>
+								<a href="apps_projects.html">Dashboard 4</a>
+							</li>
+							<li>
+								<a href="apps_bank.html">Dashboard 5</a>
+							</li>
+							<li>
+								<a href="layouts_menu_top_image.html">Dashboard 6</a>
+							</li>
+						</ul>
+					</li>
 				    <li class="has-sub-menu">
 					 <a href="layouts_menu_top_image.html">
 					   <div class="icon-w">
@@ -548,17 +443,6 @@
 				  <!--------------------
 				  END - Mobile Menu List
 				  -------------------->
-				  <div class="mobile-menu-magic">
-				    <h4>
-					 Light Admin
-				    </h4>
-				    <p>
-					 Clean Bootstrap 4 Template
-				    </p>
-				    <div class="btn-w">
-					 <a class="btn btn-white btn-rounded" href="https://themeforest.net/item/light-admin-clean-bootstrap-dashboard-html-template/19760124?ref=Osetin" target="_blank">Purchase Now</a>
-				    </div>
-				  </div>
 				</div>
 			</div>
 		   <!--------------------
@@ -650,77 +534,49 @@
 				  START - Messages Link in secondary top menu
 				  -------------------->
 					<div class="messages-notifications os-dropdown-trigger os-dropdown-position-right">
-						<i class="os-icon os-icon-mail-14"></i>
-						<div class="new-messages-count">
-							12
+							<i class="os-icon os-icon-mail-14"></i>
+							<div class="new-messages-count">
+								12
+							</div>
+							<div class="os-dropdown light message-list">
+								<ul>
+									<li>
+										<a href="#">
+											<div class="user-avatar-w">
+												<img alt="" src="img/avatar1.jpg">
+											</div>
+											<div class="message-content">
+												<h6 class="message-from">
+												John Mayers
+												</h6>
+												<h6 class="message-title">
+												Account Update
+												</h6>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<div class="user-avatar-w">
+												<img alt="" src="img/avatar2.jpg">
+											</div>
+											<div class="message-content">
+												<h6 class="message-from">
+												Phil Jones
+												</h6>
+												<h6 class="message-title">
+												Secutiry Updates
+												</h6>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
 						</div>
-						<div class="os-dropdown light message-list">
-							<ul>
-								<li>
-									<a href="#">
-										<div class="user-avatar-w">
-											<img alt="" src="img/avatar1.jpg">
-										</div>
-										<div class="message-content">
-											<h6 class="message-from">
-											John Mayers
-											</h6>
-											<h6 class="message-title">
-											Account Update
-											</h6>
-										</div>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<div class="user-avatar-w">
-											<img alt="" src="img/avatar2.jpg">
-										</div>
-										<div class="message-content">
-											<h6 class="message-from">
-											Phil Jones
-											</h6>
-											<h6 class="message-title">
-											Secutiry Updates
-											</h6>
-										</div>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
 				  <!--------------------
 				  END - Messages Link in secondary top menu
-				  --------------------><!--------------------
-				  START - Settings Link in secondary top menu
 				  -------------------->
-
-					<!--<div class="top-icon top-settings os-dropdown-trigger os-dropdown-position-right">
-						<i class="os-icon os-icon-ui-46"></i>
-						<div class="os-dropdown">
-							<div class="icon-w">
-								<i class="os-icon os-icon-ui-46"></i>
-							</div>
-							<ul>
-								<li>
-									<a href="users_profile_small.html"><i class="os-icon os-icon-ui-49"></i><span>Profile Settings</span></a>
-								</li>
-								<li>
-									<a href="users_profile_small.html"><i class="os-icon os-icon-grid-10"></i><span>Billing Info</span></a>
-								</li>
-								<li>
-									<a href="users_profile_small.html"><i class="os-icon os-icon-ui-44"></i><span>My Invoices</span></a>
-								</li>
-								<li>
-									<a href="users_profile_small.html"><i class="os-icon os-icon-ui-15"></i><span>Cancel Account</span></a>
-								</li>
-							</ul>
-						</div>
-					</div> -->
-
 				  <!--------------------
-				  END - Settings Link in secondary top menu
-				  --------------------><!--------------------
 				  START - Messages Link in secondary top menu
 				  -------------------->
 
@@ -771,9 +627,6 @@
 				  <!--------------------
 				  END - Messages Link in secondary top menu
 				  -------------------->
-				</div>
-				<div class="element-search autosuggest-search-activator">
-				  <input placeholder="Start typing to search..." type="text">
 				</div>
 				<h1 class="menu-page-header">
 				  Page Header
@@ -1263,271 +1116,268 @@
 			<!--------------------
 			END - Top Bar
 			-------------------->
-			<div class="content-i">
-				<div class="content-box">
-					<div class="element-wrapper">
-					<h6 class="element-header">
-					   Home
-					</h6>
-					<div class="element-box">
-						<div class="form-content">
-							<h5 class="form-header">
-								My Schedule
-							</h5>
-							<div class="container">
-								<div class="row">
-						               <div class="col-md-10">
-										<nav>
-							                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-												<a class="nav-item nav-link" id="nav-past-tab" data-toggle="tab" href="#nav-past" role="tab" aria-controls="nav-past" aria-selected="true"><h5 class="text-center text-white">Past</h5></a>
-												<a class="nav-item nav-link active" id="nav-present-tab" data-toggle="tab" href="#nav-present" role="tab" aria-controls="nav-present" aria-selected="false"><h5 class="text-center text-white">Present</h5></a>
-												<a class="nav-item nav-link" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab" aria-controls="nav-future" aria-selected="false"><h5 class="text-center text-white">Future</h5></a>
-												<a class="nav-item nav-link" id="nav-leave-tab" data-toggle="tab" href="#nav-leave" role="tab" aria-controls="nav-leave" aria-selected="false"><h5 class="text-center text-white">Others</h5></a>
-							                    </div>
-										</nav>
-										<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-											<div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
-												
-												<div class="form-content">
-													<form id="signupForm" action="" method="post" name="login">
-														<div class="col-md-5 ">
-															<div class="form-group">
-												          		<label for="">Select Date Range</label>
-												          		<input class="multi-daterange form-control" type="text" value="03/31/2017 - <?php echo date('Y-m-d', strtotime('-7 days'))?>">
-													          </div>
+				<div class="content-i">
+					<div class="content-box">
+						<div class="element-wrapper">
+						<h6 class="element-header">
+						   My Schedule
+						</h6>
+							<div class="element-box">
+								<div class="form-content">
+									<h4 class="form-header">
+										<?php 
+											echo "Today's date is :"; 
+											$today = date("D M/d/Y"); 
+											echo $today;  
+										?>
+									</h4>
+									<div class="container">
+										<div class="row">
+								            <div class="col-md-10">
+												<nav>
+									                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+														<a class="nav-item nav-link" id="nav-past-tab" data-toggle="tab" href="#nav-past" role="tab" aria-controls="nav-past" aria-selected="false"><h5 class="text-center text-white">Past</h5></a>
+														<a class="nav-item nav-link active" id="nav-present-tab" data-toggle="tab" href="#nav-present" role="tab" aria-controls="nav-present" aria-selected="true"><h5 class="text-center text-white">Present</h5></a>
+														<a class="nav-item nav-link" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab" aria-controls="nav-future" aria-selected="false"><h5 class="text-center text-white">Future</h5></a>
+														<a class="nav-item nav-link" id="nav-leave-tab" data-toggle="tab" href="#nav-leave" role="tab" aria-controls="nav-leave" aria-selected="false"><h5 class="text-center text-white">Others</h5></a>
+									                    </div>
+												</nav>
+												<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+													<div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
+														
+														<div class="form-content">
+															<form id="signupForm" action="" method="post" name="login">
+																<div class="col-md-5 ">
+																	<div class="form-group">
+														          		<label for="">Select Date Range</label>
+														          		<input class="multi-daterange form-control" type="text" value="03/31/2017 - <?php echo date('Y-m-d', strtotime('-7 days'))?>">
+															          </div>
+																</div>
+															</form>
+															<div class="table-responsive">
+																<table id ="past_list" width="100%" class="table table-striped table-lightfont table-compact">
+																    <thead>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th>Status</th>
+																	   </tr>
+																    </thead>
+																    <tbody>
+
+																	<?php
+																	$row = $obj->fetch_data("Employee_Master");
+																	
+																		/*$row = $obj->fetch_data("Employee_Master");*/
+																		foreach ($row as $employee) {
+																			/*concatinate full name with or without middle name*/
+																			$string = $employee['middle_name'];
+																			if (!empty($string)) {
+																				$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
+																			}else{
+																				$fullname = $employee['last_name'].", ".$employee['first_name'];
+																			}
+
+																			/*get employee login type*/
+																			$category = $employee['employee_id'];
+																			$where = array("employee_id"=>$category,);
+																			$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
+
+																				$category = $emp_info_table['user_type_id'];
+																				$where = array("id"=>$category,);
+																				$user_type = $obj->select_data("User_Type_Master", $where);
+
+																			/*get employee status type*/
+																				$category = $employee['status_id'];
+																				$where = array("id"=>$category,);
+																				$emp_status = $obj->select_data("Employee_Status_Master", $where);
+																				
+																			?>
+
+																			<tr>
+																				<td><?php echo $employee['employee_id'];?></td>
+																				<td><?php echo $fullname;?></td>
+																				<td><?php echo $emp_status['status'];?></td>
+																		   </tr>
+
+																		<?php } ?>
+																	   
+																    </tbody>
+																    <tfoot>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th>Status</th>
+																	   </tr>
+																    </tfoot>
+																</table>
+															</div>
 														</div>
-													</form>
-													<div class="table-responsive">
-														<table id ="past_list" width="100%" class="table table-striped table-lightfont table-compact">
-														    <thead>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th>Status</th>
-															   </tr>
-														    </thead>
-														    <tbody>
 
-															<?php
-															$row = $obj->fetch_data("Employee_Master");
-															
-																/*$row = $obj->fetch_data("Employee_Master");*/
-																foreach ($row as $employee) {
-																	/*concatinate full name with or without middle name*/
-																	$string = $employee['middle_name'];
-																	if (!empty($string)) {
-																		$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
-																	}else{
-																		$fullname = $employee['last_name'].", ".$employee['first_name'];
-																	}
+									                    </div>
+									                    <div class="tab-pane fade show active" id="nav-present" role="tabpanel" aria-labelledby="nav-present-tab">
+														
+														<div class="form-content">
+															<div class="table-responsive">
+																<table id ="present_list" width="100%" class="table table-striped table-lightfont table-compact">
+																    <thead>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th>Status</th>
+																	   </tr>
+																    </thead>
+																    <tbody>
 
-																	/*get employee login type*/
-																	$category = $employee['employee_id'];
-																	$where = array("employee_id"=>$category,);
-																	$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
+																	<?php
+																	$row = $obj->fetch_data("Employee_Master");
+																	
+																		/*$row = $obj->fetch_data("Employee_Master");*/
+																		foreach ($row as $employee) {
+																			/*concatinate full name with or without middle name*/
+																			$string = $employee['middle_name'];
+																			if (!empty($string)) {
+																				$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
+																			}else{
+																				$fullname = $employee['last_name'].", ".$employee['first_name'];
+																			}
 
-																		$category = $emp_info_table['user_type_id'];
-																		$where = array("id"=>$category,);
-																		$user_type = $obj->select_data("User_Type_Master", $where);
+																			/*get employee login type*/
+																			$category = $employee['employee_id'];
+																			$where = array("employee_id"=>$category,);
+																			$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
 
-																	/*get employee status type*/
-																		$category = $employee['status_id'];
-																		$where = array("id"=>$category,);
-																		$emp_status = $obj->select_data("Employee_Status_Master", $where);
-																		
-																	?>
+																				$category = $emp_info_table['user_type_id'];
+																				$where = array("id"=>$category,);
+																				$user_type = $obj->select_data("User_Type_Master", $where);
 
-																	<tr>
-																		<td><?php echo $employee['employee_id'];?></td>
-																		<td><?php echo $fullname;?></td>
-																		<td><?php echo $emp_status['status'];?></td>
-																   </tr>
+																			/*get employee status type*/
+																				$category = $employee['status_id'];
+																				$where = array("id"=>$category,);
+																				$emp_status = $obj->select_data("Employee_Status_Master", $where);
+																				
+																			?>
 
-																<?php } ?>
-															   
-														    </tbody>
-														    <tfoot>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th>Status</th>
-															   </tr>
-														    </tfoot>
-														</table>
+																			<tr>
+																				<td><?php echo $employee['employee_id'];?></td>
+																				<td><?php echo $fullname;?></td>
+																				<td><?php echo $emp_status['status'];?></td>
+																		   </tr>
+
+																		<?php } ?>
+																	   
+																    </tbody>
+																    <tfoot>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th>Status</th>
+																	   </tr>
+																    </tfoot>
+																</table>
+															</div>
+														</div><br>
+
+														<div class="row">
+															<div class="col-md-6"></div>
+															<div class="col-md-6">
+																<form action="" method="post" name="emp_action">
+																	<input onclick="return confirm('Do you want to Clock IN?')" 	data-status="time_in"  class="btn btn-primary action" name="time_in"  type="submit" value="Time IN">
+																	<input onclick="return confirm('Do you want to Clock BREAK?')" 	data-status="break_"    class="btn btn-warning action" name="break_"    type="submit" value="Break">
+																	<input onclick="return confirm('Do you want to Clock LUNCH?')" 	data-status="lunch"    class="btn btn-success action" name="lunch"    type="submit" value="Lunch">
+																	<input onclick="return confirm('Do you want to Clock OUT?')" 	data-status="time_out" class="btn btn-danger action"  name="time_out" type="submit" value="Time OUT">
+																</form>
+															</div>
+														</div>
+									                    </div>
+
+									                    <div class="tab-pane fade" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
+														
+														<div class="form-content">
+															<form id="signupForm" action="" method="post" name="login">
+																<div class="col-md-5 ">
+																	<div class="form-group">
+														          		<label for="">Select Date Range</label>
+														          		<input class="multi-daterange form-control" type="text" value="03/31/2017 - <?php echo date('Y-m-d', strtotime('-7 days'))?>">
+															          </div>
+																</div>
+															</form>
+															<div class="table-responsive">
+																<table id ="future_list" width="100%" class="table table-striped table-lightfont table-compact">
+																    <thead>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th></th>
+																			<th>Date</th>
+																			<th>Time</th>
+																	   </tr>
+																    </thead>
+																    <tbody>
+
+																	<?php
+																	$row = $obj->fetch_data("Employee_Master");
+																	
+																		/*$row = $obj->fetch_data("Employee_Master");*/
+																		foreach ($row as $employee) {
+																			/*concatinate full name with or without middle name*/
+																			$string = $employee['middle_name'];
+																			if (!empty($string)) {
+																				$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
+																			}else{
+																				$fullname = $employee['last_name'].", ".$employee['first_name'];
+																			}
+
+																			/*get employee login type*/
+																			$category = $employee['employee_id'];
+																			$where = array("employee_id"=>$category,);
+																			$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
+
+																				$category = $emp_info_table['user_type_id'];
+																				$where = array("id"=>$category,);
+																				$user_type = $obj->select_data("User_Type_Master", $where);
+
+																			/*get employee status type*/
+																				$category = $employee['status_id'];
+																				$where = array("id"=>$category,);
+																				$emp_status = $obj->select_data("Employee_Status_Master", $where);
+																				
+																			?>
+
+																			<tr>
+																				<td><?php echo $employee['employee_id'];?></td>
+																				<td><?php echo $emp_status['status'];?></td>
+																				<td></td>
+																				<td><?php echo $employee['employee_id'];?></td>
+																				<td><?php echo $emp_status['status'];?></td>
+																		   </tr>
+
+																		<?php } ?>
+																	   
+																    </tbody>
+																    <tfoot>
+																	   <tr>
+																			<th>Date</th>
+																			<th>Time</th>
+																			<th></th>
+																			<th>Date</th>
+																			<th>Time</th>
+																	   </tr>
+																    </tfoot>
+																</table>
+															</div>
+														</div>							                    
+													</div>
+									                    <div class="tab-pane fade" id="nav-leave" role="tabpanel" aria-labelledby="nav-leave-tab">
+														4											
 													</div>
 												</div>
-
-							                    </div>
-							                    <div class="tab-pane fade show active" id="nav-present" role="tabpanel" aria-labelledby="nav-present-tab">
-												
-												<div class="form-content">
-													<div class="table-responsive">
-														<table id ="present_list" width="100%" class="table table-striped table-lightfont table-compact">
-														    <thead>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th>Status</th>
-															   </tr>
-														    </thead>
-														    <tbody>
-
-															<?php
-															$row = $obj->fetch_data("Employee_Master");
-															
-																/*$row = $obj->fetch_data("Employee_Master");*/
-																foreach ($row as $employee) {
-																	/*concatinate full name with or without middle name*/
-																	$string = $employee['middle_name'];
-																	if (!empty($string)) {
-																		$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
-																	}else{
-																		$fullname = $employee['last_name'].", ".$employee['first_name'];
-																	}
-
-																	/*get employee login type*/
-																	$category = $employee['employee_id'];
-																	$where = array("employee_id"=>$category,);
-																	$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
-
-																		$category = $emp_info_table['user_type_id'];
-																		$where = array("id"=>$category,);
-																		$user_type = $obj->select_data("User_Type_Master", $where);
-
-																	/*get employee status type*/
-																		$category = $employee['status_id'];
-																		$where = array("id"=>$category,);
-																		$emp_status = $obj->select_data("Employee_Status_Master", $where);
-																		
-																	?>
-
-																	<tr>
-																		<td><?php echo $employee['employee_id'];?></td>
-																		<td><?php echo $fullname;?></td>
-																		<td><?php echo $emp_status['status'];?></td>
-																   </tr>
-
-																<?php } ?>
-															   
-														    </tbody>
-														    <tfoot>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th>Status</th>
-															   </tr>
-														    </tfoot>
-														</table>
-													</div>
-												</div><br>
-
-												<div class="row">
-													<div class="col-md-7"></div>
-													<div class="col-md-5">
-														<input class="btn btn-primary" name="time_in" type="submit" value="Time IN">
-														<input class="btn btn-warning" name="break" type="submit" value="Break">
-														<input class="btn btn-success" name="lunch" type="submit" value="Lunch">
-														<input class="btn btn-danger" name="time_out" type="submit" value="Time OUT">
-													</div>
-												</div>
-
-
-							                    </div>
-
-							                    <div class="tab-pane fade" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
-												
-												<div class="form-content">
-													<form id="signupForm" action="" method="post" name="login">
-														<div class="col-md-5 ">
-															<div class="form-group">
-												          		<label for="">Select Date Range</label>
-												          		<input class="multi-daterange form-control" type="text" value="03/31/2017 - <?php echo date('Y-m-d', strtotime('-7 days'))?>">
-													          </div>
-														</div>
-													</form>
-													<div class="table-responsive">
-														<table id ="future_list" width="100%" class="table table-striped table-lightfont table-compact">
-														    <thead>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th></th>
-																	<th>Date</th>
-																	<th>Time</th>
-															   </tr>
-														    </thead>
-														    <tbody>
-
-															<?php
-															$row = $obj->fetch_data("Employee_Master");
-															
-																/*$row = $obj->fetch_data("Employee_Master");*/
-																foreach ($row as $employee) {
-																	/*concatinate full name with or without middle name*/
-																	$string = $employee['middle_name'];
-																	if (!empty($string)) {
-																		$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
-																	}else{
-																		$fullname = $employee['last_name'].", ".$employee['first_name'];
-																	}
-
-																	/*get employee login type*/
-																	$category = $employee['employee_id'];
-																	$where = array("employee_id"=>$category,);
-																	$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
-
-																		$category = $emp_info_table['user_type_id'];
-																		$where = array("id"=>$category,);
-																		$user_type = $obj->select_data("User_Type_Master", $where);
-
-																	/*get employee status type*/
-																		$category = $employee['status_id'];
-																		$where = array("id"=>$category,);
-																		$emp_status = $obj->select_data("Employee_Status_Master", $where);
-																		
-																	?>
-
-																	<tr>
-																		<td><?php echo $employee['employee_id'];?></td>
-																		<td><?php echo $emp_status['status'];?></td>
-																		<td></td>
-																		<td><?php echo $employee['employee_id'];?></td>
-																		<td><?php echo $emp_status['status'];?></td>
-																   </tr>
-
-																<?php } ?>
-															   
-														    </tbody>
-														    <tfoot>
-															   <tr>
-																	<th>Date</th>
-																	<th>Time</th>
-																	<th></th>
-																	<th>Date</th>
-																	<th>Time</th>
-															   </tr>
-														    </tfoot>
-														</table>
-													</div>
-												</div>							                    
 											</div>
-							                    <div class="tab-pane fade" id="nav-leave" role="tabpanel" aria-labelledby="nav-leave-tab">
-												4											
-											</div>
-										</div>
-									</div>
-					              </div>
-					        </div>
-
-
-								<div class="w-100"></div><hr>
-								<div class="col-md-1"></div>
-								<div class="col-md-8 p-1">
-
+							            </div>
+							        </div>
 								</div>
 							</div>
 						</div>
-					</div>
 				    </div>
 				</div>
 			</div>
@@ -1535,7 +1385,7 @@
 	<div class="display-type"></div>
  </div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="bower_components/popper.js/dist/umd/popper.min.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/chart.js/dist/Chart.min.js"></script>
@@ -1567,6 +1417,8 @@
     <script src="js/demo_customizer.js?version=4.4.0"></script>
     <script src="js/main.js?version=4.4.0"></script>
     <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/sweetalert.min.js"></script>
+
 
     <script>	
 
@@ -1586,7 +1438,7 @@
 
 		$(document).ready(function() {
 			$('#present_list').DataTable( {
-				"lengthMenu": [[7, 14, -1], [7, 14, "All"]],
+				"lengthMenu": [[8, 16, -1], [8, 16, "All"]],
 				"order": [[ 0,1, "desc" ]]
 			} );
 		} );
@@ -1598,7 +1450,17 @@
 			} );
 		} );
 
+/*		$(document).ready(function(){
+		    $('.action').click(function(){
+		        var clickBtnValue = $(this).data('status');
+		        var ajaxurl = 'core/classes/main.class.php',
+		        data =  {'action': clickBtnValue};
+		        $.post(ajaxurl, data, function (response) {
+		            alert("action performed successfully");
+		        });
+		    });
 
+		});*/
 	
 	 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
