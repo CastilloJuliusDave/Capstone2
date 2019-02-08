@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 06, 2019 at 01:37 AM
+-- Generation Time: Feb 08, 2019 at 02:01 AM
 -- Server version: 10.1.34-MariaDB-0ubuntu0.18.04.1
 -- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
@@ -23,17 +23,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Attendance_Master`
+-- Table structure for table `Activity_Master`
 --
 
-CREATE TABLE `Attendance_Master` (
+CREATE TABLE `Activity_Master` (
   `id` int(11) NOT NULL,
   `employee_id` varchar(11) NOT NULL,
-  `time_in` datetime NOT NULL,
-  `time_out` datetime NOT NULL,
-  `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Activity_Master`
+--
+
+INSERT INTO `Activity_Master` (`id`, `employee_id`, `date_time`, `status`) VALUES
+(1, 'e0971', '2019-02-08 09:30:49', 'Time_In');
 
 -- --------------------------------------------------------
 
@@ -47,20 +52,21 @@ CREATE TABLE `Employee_Login_Master` (
   `password` varchar(100) NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_type_id` int(10) NOT NULL
+  `user_type_id` int(10) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `Employee_Login_Master`
 --
 
-INSERT INTO `Employee_Login_Master` (`id`, `employee_id`, `password`, `last_login`, `register_date`, `user_type_id`) VALUES
-(1, 'e0971', 'admin', '2019-02-06 09:20:19', '2019-02-05 15:32:56', 3),
-(2, '1fbe41', 'admin', '2019-02-06 09:20:17', '2019-02-05 15:39:14', 1),
-(3, '464c42', 'admin', '2019-02-06 09:20:15', '2019-02-05 15:47:22', 3),
-(4, 'ea4543', 'admin', '2019-02-06 09:20:13', '2019-02-06 07:49:19', 3),
-(6, '5ede45', 'admin', '2019-02-06 09:20:09', '2019-02-06 07:53:34', 3),
-(7, 'b65246', 'admin', '2019-02-06 07:56:06', '2019-02-06 07:56:06', 2);
+INSERT INTO `Employee_Login_Master` (`id`, `employee_id`, `password`, `last_login`, `register_date`, `user_type_id`, `status`) VALUES
+(1, 'e0971', 'admin', '2019-02-08 02:45:53', '2019-02-05 15:32:56', 3, 'IN'),
+(2, '1fbe41', 'admin', '0000-00-00 00:00:00', '2019-02-05 15:39:14', 3, ''),
+(3, '464c42', 'admin', '2019-02-06 09:20:15', '2019-02-05 15:47:22', 3, ''),
+(4, 'ea4543', 'admin', '2019-02-06 09:20:13', '2019-02-06 07:49:19', 3, ''),
+(6, '5ede45', 'admin', '2019-02-06 09:20:09', '2019-02-06 07:53:34', 3, ''),
+(7, 'b65246', 'admin', '2019-02-07 02:32:44', '2019-02-05 15:32:56', 2, 'IN');
 
 -- --------------------------------------------------------
 
@@ -190,9 +196,9 @@ INSERT INTO `User_Type_Master` (`id`, `user_type`) VALUES
 --
 
 --
--- Indexes for table `Attendance_Master`
+-- Indexes for table `Activity_Master`
 --
-ALTER TABLE `Attendance_Master`
+ALTER TABLE `Activity_Master`
   ADD PRIMARY KEY (`id`),
   ADD KEY `employee_id` (`employee_id`);
 
@@ -251,10 +257,10 @@ ALTER TABLE `User_Type_Master`
 --
 
 --
--- AUTO_INCREMENT for table `Attendance_Master`
+-- AUTO_INCREMENT for table `Activity_Master`
 --
-ALTER TABLE `Attendance_Master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Activity_Master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `Employee_Login_Master`
 --
@@ -295,10 +301,10 @@ ALTER TABLE `User_Type_Master`
 --
 
 --
--- Constraints for table `Attendance_Master`
+-- Constraints for table `Activity_Master`
 --
-ALTER TABLE `Attendance_Master`
-  ADD CONSTRAINT `Attendance_Master_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `Employee_Master` (`employee_id`);
+ALTER TABLE `Activity_Master`
+  ADD CONSTRAINT `Activity_Master_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `Employee_Master` (`employee_id`);
 
 --
 -- Constraints for table `Employee_Login_Master`

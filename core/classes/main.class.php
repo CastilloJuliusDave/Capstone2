@@ -219,6 +219,22 @@ class Main {
 			$temp_ID = $unique_id.($user_data['temp_id'] + 1);
 			return $temp_ID;
 		}
+
+		public function get_date_time($type)
+		if ($type == "date") {
+			$date_ = new DateTime();
+			$usersTimezone = 'Asia/Manila';
+			$tz = new DateTimeZone($usersTimezone);
+			$date_->setTimeZone($tz);
+			return = $date->format('Y-m-d');
+		
+		}else{
+			$date_ = new DateTime();
+			$usersTimezone = 'Asia/Manila';
+			$tz = new DateTimeZone($usersTimezone);
+			$date_->setTimeZone($tz);
+			return = $date->format('H:i:s');
+		}
 }
 
 $obj = new Main();
