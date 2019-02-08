@@ -41,7 +41,7 @@
     <link href ="assets/css/main.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    
+
   </head>
   <body class="menu-position-side menu-side-left full-screen">
 	<div class="all-wrapper solid-bg-all">
@@ -96,7 +96,7 @@
 				  <!--------------------
 				  START - Mobile Menu List
 				  -------------------->
-				  <ul class="main-menu">
+				<ul class="main-menu">
 					<li class="has-sub-menu">
 						<a href="index.html">
 						<div class="icon-w">
@@ -439,7 +439,7 @@
 					   </li>
 					 </ul>
 				    </li>
-				  </ul>
+				</ul>
 				  <!--------------------
 				  END - Mobile Menu List
 				  -------------------->
@@ -573,60 +573,7 @@
 								</ul>
 							</div>
 						</div>
-				  <!--------------------
-				  END - Messages Link in secondary top menu
-				  -------------------->
-				  <!--------------------
-				  START - Messages Link in secondary top menu
-				  -------------------->
-
-				<!-- <div class="messages-notifications os-dropdown-trigger os-dropdown-position-right">
-					<i class="os-icon os-icon-zap"></i>
-					<div class="new-messages-count">
-						4
-					</div>
-					<div class="os-dropdown light message-list">
-						<div class="icon-w">
-							<i class="os-icon os-icon-zap"></i>
-						</div>
-						<ul>
-							<li>
-								<a href="#">
-									<div class="user-avatar-w">
-										<img alt="" src="img/avatar1.jpg">
-									</div>
-									<div class="message-content">
-										<h6 class="message-from">
-										John Mayers
-										</h6>
-										<h6 class="message-title">
-										Account Update
-										</h6>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="user-avatar-w">
-										<img alt="" src="img/avatar2.jpg">
-									</div>
-									<div class="message-content">
-										<h6 class="message-from">
-										Phil Jones
-										</h6>
-										<h6 class="message-title">
-										Secutiry Updates
-										</h6>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div> -->
-
-				  <!--------------------
-				  END - Messages Link in secondary top menu
-				  -------------------->
+				  
 				</div>
 				<h1 class="menu-page-header">
 				  Page Header
@@ -1126,21 +1073,34 @@
 								<div class="form-content">
 									<h4 class="form-header">
 										<?php 
+
+											$date_ = new DateTime();
+											$date_2= new DateTime();
+											// Example user timezone (to show it can be used dynamically)
+											$usersTimezone = 'Asia/Manila';
+
+											// Convert timezone
+											$tz = new DateTimeZone($usersTimezone);
+											$date_->setTimeZone($tz);
+											$date_2->setTimeZone($tz);
+
+											// Output date after 
 											echo "Today's date is :"; 
-											$today = date("D M/d/Y"); 
-											echo $today;  
+											echo $date_->format('l - F j, Y');
+											$date_today = $date_2->format('Y-m-d');
 										?>
+										<br>
 									</h4>
 									<div class="container">
 										<div class="row">
 								            <div class="col-md-10">
 												<nav>
-									                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+								                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 														<a class="nav-item nav-link" id="nav-past-tab" data-toggle="tab" href="#nav-past" role="tab" aria-controls="nav-past" aria-selected="false"><h5 class="text-center text-white">Past</h5></a>
 														<a class="nav-item nav-link active" id="nav-present-tab" data-toggle="tab" href="#nav-present" role="tab" aria-controls="nav-present" aria-selected="true"><h5 class="text-center text-white">Present</h5></a>
 														<a class="nav-item nav-link" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab" aria-controls="nav-future" aria-selected="false"><h5 class="text-center text-white">Future</h5></a>
 														<a class="nav-item nav-link" id="nav-leave-tab" data-toggle="tab" href="#nav-leave" role="tab" aria-controls="nav-leave" aria-selected="false"><h5 class="text-center text-white">Others</h5></a>
-									                    </div>
+								                    </div>
 												</nav>
 												<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
 													<div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
@@ -1159,8 +1119,9 @@
 																    <thead>
 																	   <tr>
 																			<th>Date</th>
-																			<th>Time</th>
-																			<th>Status</th>
+																			<th>Time IN</th>
+																			<th>Time OUT</th>
+																			<th>Total Hours</th>
 																	   </tr>
 																    </thead>
 																    <tbody>
@@ -1230,38 +1191,17 @@
 																    <tbody>
 
 																	<?php
-																	$row = $obj->fetch_data("Employee_Master");
-																	
-																		/*$row = $obj->fetch_data("Employee_Master");*/
-																		foreach ($row as $employee) {
-																			/*concatinate full name with or without middle name*/
-																			$string = $employee['middle_name'];
-																			if (!empty($string)) {
-																				$fullname = $employee['last_name'].", ".$employee['first_name']." ".$string[0].".";
-																			}else{
-																				$fullname = $employee['last_name'].", ".$employee['first_name'];
-																			}
+																	$where = $_SESSION['id'];
+																	$row = $obj->fetch_data_presentLIKE("Activity_Master", $where, $date_today);
 
-																			/*get employee login type*/
-																			$category = $employee['employee_id'];
-																			$where = array("employee_id"=>$category,);
-																			$emp_info_table = $obj->select_data("Employee_Login_Master", $where);
-
-																				$category = $emp_info_table['user_type_id'];
-																				$where = array("id"=>$category,);
-																				$user_type = $obj->select_data("User_Type_Master", $where);
-
-																			/*get employee status type*/
-																				$category = $employee['status_id'];
-																				$where = array("id"=>$category,);
-																				$emp_status = $obj->select_data("Employee_Status_Master", $where);
-																				
+																		/*$row = $obj->fetch_data("Activity_Master");*/
+																		foreach ($row as $employee_activity) {
+																			$date_time = explode(" ", $employee_activity['date_time']);
 																			?>
-
 																			<tr>
-																				<td><?php echo $employee['employee_id'];?></td>
-																				<td><?php echo $fullname;?></td>
-																				<td><?php echo $emp_status['status'];?></td>
+																				<td><?php echo $date_time[0];?></td>
+																				<td><?php echo $date_time[1];?></td>
+																				<td><?php echo $employee_activity['status'];?></td>
 																		   </tr>
 
 																		<?php } ?>
@@ -1450,7 +1390,7 @@
 			} );
 		} );
 
-/*		$(document).ready(function(){
+		/*$(document).ready(function(){
 		    $('.action').click(function(){
 		        var clickBtnValue = $(this).data('status');
 		        var ajaxurl = 'core/classes/main.class.php',
@@ -1461,6 +1401,8 @@
 		    });
 
 		});*/
+
+
 	
 	 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -39,6 +39,8 @@ class Main {
 	}
 	//end of fetch
 
+
+
 	//start of update
 	public function update_data($table,$where,$fields){
 		$sql = "";
@@ -104,6 +106,18 @@ class Main {
 	}
 //end select orderby
 
+		//srat of fetch
+	public function fetch_data_presentLIKE($table,$condition,$like_argument){
+		$sql = "SELECT * FROM ".$table." WHERE employee_id='".$condition ."' AND status != 'Logged_In' AND status != 'Logged_Out' AND date_time LIKE '".$like_argument."%'";;
+		$array = array();
+		$query = mysqli_query($this->con,$sql);
+
+		while($row = mysqli_fetch_assoc($query)){
+			$array[] = $row;
+		}
+		return $array;
+	}
+	//end of fetch
 
 
 //start delete data
